@@ -1,7 +1,0 @@
-﻿services:
-  hrm_web_app:
-    image: hrm_web_app
-    build:
-      context: .
-      dockerfile: HRM_Web_App/Dockerfile
-
