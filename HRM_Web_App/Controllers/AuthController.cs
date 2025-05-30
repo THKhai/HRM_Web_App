@@ -1,3 +1,4 @@
+using HRM_Web_App.Data;
 using HRM_Web_App.Models;
 using HRM_Web_App.Services;
 using Microsoft.AspNetCore.Identity;
@@ -9,11 +10,13 @@ namespace HRM_Web_App.Controllers;
 [Route("api/[controller]")]
 public class AuthController : Controller
 {
+    private readonly NhanVienContext _context;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly ITokenRepository _tokenRepository;
 
-    public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
+    public AuthController(NhanVienContext context ,UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
     {
+        _context = context;
         _userManager = userManager;
         _tokenRepository = tokenRepository;
     }

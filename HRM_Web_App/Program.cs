@@ -14,6 +14,8 @@ var key = Encoding.UTF8.GetBytes(jwtSetting["Key"]);
 //(6)Connect to PostgreSQL database
 builder.Services.AddDbContext<AuthContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<NhanVienContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 //(5)
 
 // Configure the JWT token service

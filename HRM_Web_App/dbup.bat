@@ -30,15 +30,6 @@ for /L %%i in (1,1,%MAX_ATTEMPTS%) do (
         echo [STATUS]: Waiting for PostgreSQL...
         set "all_ready=false"
     )
-
-   
-
-    REM Check MongoDB
-    docker exec -i Mongodb_container /usr/bin/mongosh --eval "db.runCommand({ping:1})" >nul 2>&1
-    if !errorlevel! neq 0 (
-        echo [STATUS]: Waiting for MongoDB...
-        set "all_ready=false"
-    )
     
     REM Exit if all services are ready
     if "!all_ready!"=="true" (
@@ -70,22 +61,6 @@ for %%f in (.\Repository\migration_scripts\redis\*.rdb) do (
     )
 )
 echo "[STATUS]: Redis has been initialized successfully with data!"
-
-
-echo [STEP]: Migrating MongoDB...
-docker cp ".\Repository\Migration_scripts\mongoDB" Mongodb_container:/scripts/
-if %errorlevel% neq 0 (
-    echo "[ERR]: Failed to copy migration scripts to Redis container."
-    exit /b %errorlevel%
-)
-for %%f in (.\Repository\Migration_scripts\mongoDB\*.js) do (
-    echo Running %%~nxf...
-    docker exec -i Mongodb_container /usr/bin/mongosh /scripts/%%~nxf
-    if !errorlevel! neq 0 (
-        echo [ERR]: Failed executing %%~nxf in MongoDB
-    )
-)
-echo [STATUS]: MongoDB migration completed.
 
 echo [STEP]: Migrating PostgreSQL...
 docker cp ".\Repository\Migration_scripts\postgres" Postgres_container:/migrations/

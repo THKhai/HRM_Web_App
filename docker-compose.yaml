@@ -45,21 +45,3 @@
       timeout: 10s
       retries: 3
       start_period: 10s
-  Mongodb:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    container_name: Mongodb_container
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    volumes:
-      - ./Repository/data_base_log/mongo_data:/data/db
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s

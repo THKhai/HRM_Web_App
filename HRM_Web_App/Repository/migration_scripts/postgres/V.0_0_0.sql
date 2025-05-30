@@ -1,7 +1,7 @@
 -- Tạo người dùng và cơ sở dữ liệu
 CREATE USER "khai_TR" WITH ENCRYPTED PASSWORD '09122002';
 -- Cấp quyền cho người dùng
-GRANT CONNECT ON DATABASE "HealthData" TO "khai_TR";
+GRANT CONNECT ON DATABASE "AuthData" TO "khai_TR";
 GRANT USAGE ON SCHEMA public TO "khai_TR";
 
 ----------------------------------------CREATE TABLES----------------------------------------
@@ -41,6 +41,8 @@ CREATE TABLE "AspNetUserRoles" (
                                    FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE,
                                    FOREIGN KEY ("RoleId") REFERENCES "AspNetRoles" ("Id") ON DELETE CASCADE
 );
+
+
 -----------------------------------------INSERT DATA-----------------------------------------
 INSERT INTO "AspNetRoles" ("Id", "Name", "NormalizedName", "ConcurrencyStamp")
 VALUES ('dc2626f4-b6cf-40f8-93f1-e8c19d3b37ed', 'User','USER','dc2626f4-b6cf-40f8-93f1-e8c19d3b37ed'),
